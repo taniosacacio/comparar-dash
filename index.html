@@ -32,7 +32,7 @@
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + var(--sat) + 20px);-webkit-text-size-adjust:100%}
+html{scroll-padding-top:calc(var(--header-h) + var(--sat) + 20px);-webkit-text-size-adjust:100%}
 body{margin:0;font-family:'Inter',system-ui,-apple-system,'SF Pro Text',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:'Outfit','Inter',sans-serif;line-height:1.15;margin:0;color:var(--navy-900);letter-spacing:-.01em}
 p{margin:0 0 12px;color:var(--ink-2)}
@@ -589,34 +589,6 @@ html.gate-on,html.gate-on body{overflow:hidden}
         <div class="callout ok" style="margin-top:16px"><span class="ic" aria-hidden="true">✓</span><p>Diferença de apenas <strong>2,3%</strong> entre Purchase e conversão offline (PagSeguro) — confirma a baixa distorção real. Perda pontual identificada: pedidos pagos por conta bancária.</p></div>
       </article>
     </div>
-
-    <article class="card reveal" style="margin-top:16px">
-      <h3>RLA — Receita Líquida Aproximada (base do ROMI)</h3>
-      <p>Variável criada no GTM e enviada ao GA4 como dimensão personalizada (não retroativa). Ela aplica o percentual de custos operacionais sobre o valor bruto de cada venda, viabilizando a fórmula do contrato: <code>ROMI = [Receita − (Mídia + Custos operacionais)] ÷ (Mídia + Custos operacionais)</code>.</p>
-      <div class="calc">
-        <div>
-          <div class="field">
-            <label for="rlaValor">Valor bruto da venda (R$)</label>
-            <input type="number" id="rlaValor" value="52.41" min="0" step="0.01" inputmode="decimal">
-          </div>
-          <div class="field" style="margin-top:14px">
-            <label for="rlaPct">Custos operacionais: <span id="rlaPctOut">85</span>%</label>
-            <input type="range" id="rlaPct" min="0" max="100" step="1" value="85" aria-describedby="rlaHint">
-          </div>
-          <div class="preset" role="group" aria-label="Percentuais de referência">
-            <button type="button" data-p="70" aria-pressed="false">70% · setup inicial</button>
-            <button type="button" data-p="85" aria-pressed="true">85% · definido em 30/09</button>
-          </div>
-          <p class="muted small" id="rlaHint" style="margin-top:10px">Exemplo real do setup: R$ 52,41 com 70% → R$ 15,72.</p>
-        </div>
-        <div class="calc-out" aria-live="polite">
-          <div class="small" style="color:#a8b8dc">RLA calculada</div>
-          <div class="big" id="rlaOut">R$ 7,86</div>
-          <p>Receita líquida aproximada por venda após custos operacionais.</p>
-        </div>
-      </div>
-      <div class="callout info"><span class="ic" aria-hidden="true">i</span><p><strong>Atualização 30/09:</strong> a Comparar definiu <strong>85% de custos</strong> para o cálculo (antes, 70% como estimativa inicial). Próximo passo: aplicar o novo percentual na variável e validar com o financeiro.</p></div>
-    </article>
 
     <div class="grid g2" style="margin-top:16px">
       <article class="card reveal">
@@ -1298,21 +1270,6 @@ $('#tlList').innerHTML = TIMELINE.map(([d,k,t,x]) => `<li class="${k}"><div clas
     body.querySelectorAll('tr').forEach(tr => tr.classList.toggle('hide', b.dataset.r!=='Todos' && tr.dataset.r!==b.dataset.r));
   });
   const st = document.createElement('style'); st.textContent = '.pend tr.hide{display:none}'; document.head.appendChild(st);
-})();
-
-// Calculadora RLA
-(function(){
-  const v = $('#rlaValor'), p = $('#rlaPct'), out = $('#rlaOut'), po = $('#rlaPctOut');
-  const presets = document.querySelectorAll('.preset button');
-  const brl = n => n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  function calc(){
-    const val = parseFloat(v.value)||0, pct = parseInt(p.value,10);
-    po.textContent = pct; out.textContent = brl(val*(1-pct/100));
-    presets.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.p===pct)));
-  }
-  v.addEventListener('input',calc); p.addEventListener('input',calc);
-  presets.forEach(b => b.addEventListener('click', () => { p.value = b.dataset.p; calc(); }));
-  calc();
 })();
 
 // Galeria DTR

@@ -32,7 +32,7 @@
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + var(--sat) + 20px);-webkit-text-size-adjust:100%}
+html{scroll-padding-top:calc(var(--header-h) + var(--sat) + 20px);-webkit-text-size-adjust:100%}
 body{margin:0;font-family:'Inter',system-ui,-apple-system,'SF Pro Text',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:'Outfit','Inter',sans-serif;line-height:1.15;margin:0;color:var(--navy-900);letter-spacing:-.01em}
 p{margin:0 0 12px;color:var(--ink-2)}
@@ -365,6 +365,80 @@ footer .cols{display:grid;grid-template-columns:2fr 1fr;gap:24px}
 </style>
 </head>
 <body>
+<!-- PASSWORD GATE (mesma senha e sessão do index.html; só o hash fica no código) -->
+<style>
+html.gate-on,html.gate-on body{overflow:hidden}
+#gate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));background:radial-gradient(700px 380px at 80% 0%,rgba(52,211,153,.18),transparent 60%),radial-gradient(600px 360px at 0% 100%,rgba(59,130,246,.25),transparent 60%),linear-gradient(160deg,#081129,#0d1b3e 55%,#15264f);font-family:'Inter',system-ui,sans-serif}
+#gate-box{width:100%;max-width:400px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:20px;padding:36px 32px;text-align:center;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);color:#fff}
+#gate-box h2{font:700 22px 'Outfit','Inter',sans-serif;color:#fff;margin:14px 0 6px}
+#gate-box p{font-size:14px;color:#cdd8f3;margin:0 0 22px}
+#gate-box label{display:block;text-align:left;font-size:13px;font-weight:600;color:#dbe4fa;margin-bottom:6px}
+#gate-pwd{width:100%;min-height:50px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(8,17,41,.6);color:#fff;font:600 16px 'Inter',sans-serif;padding:0 14px;letter-spacing:2px;box-sizing:border-box;outline:none}
+#gate-pwd:focus{border-color:#6ee7b7;box-shadow:0 0 0 3px rgba(110,231,183,.25)}
+#gate-btn{width:100%;min-height:50px;margin-top:12px;border:0;border-radius:12px;background:#fff;color:#0d1b3e;font:700 15px 'Inter',sans-serif;cursor:pointer;transition:transform .2s}
+#gate-btn:hover{transform:translateY(-1px)}
+#gate-err{min-height:20px;margin-top:10px;font-size:13px;font-weight:600;color:#fca5a5}
+#gate-foot{margin-top:18px;font-size:12px;color:#a8b8dc}
+.gate-lock{width:52px;height:52px;margin:0 auto;border-radius:16px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,#34d399,#3b82f6)}
+</style>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <form id="gate-box" autocomplete="off" onsubmit="return false">
+    <div class="gate-lock" aria-hidden="true">🔐</div>
+    <h2 id="gate-title">Acesso restrito</h2>
+    <p>Comparar · Contratado × Entregue</p>
+    <label for="gate-pwd">Senha</label>
+    <input id="gate-pwd" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required>
+    <button id="gate-btn" type="submit">Acessar dashboard</button>
+    <div id="gate-err" role="alert" aria-live="assertive"></div>
+    <div id="gate-foot">Conteúdo confidencial · Search Googlar &amp; Comparar Seguro de Viagem</div>
+  </form>
+</div>
+<script>
+(function(){
+  var TARGET = '9d3562ae7cfa047c6bb5cc0036092b19db33e84417f0be09530f4b96549cc244';
+  var KEY = '_cmp_s', OK = 'ok_v3_7c9e';
+  var gate = document.getElementById('gate'), pwd = document.getElementById('gate-pwd'), err = document.getElementById('gate-err');
+  var attempts = 0, lockUntil = 0;
+  function open(){ gate.remove(); document.documentElement.classList.remove('gate-on'); }
+  try { if(sessionStorage.getItem(KEY) === OK){ open(); return; } } catch(e){}
+  document.documentElement.classList.add('gate-on');
+  setTimeout(function(){ pwd.focus(); }, 50);
+
+  // SHA-256 compacto (funciona também fora de HTTPS, onde crypto.subtle não existe)
+  function sha256(s){
+    function r(n,x){return (x>>>n)|(x<<(32-n));}
+    var K=[],H=[],p=2,i,j;
+    for(var c=0;c<64;p++){var pr=true;for(j=2;j*j<=p;j++)if(p%j===0){pr=false;break;}
+      if(pr){if(c<8)H[c]=(Math.pow(p,1/2)*4294967296)|0;K[c++]=(Math.pow(p,1/3)*4294967296)|0;}}
+    var b=unescape(encodeURIComponent(s)),l=b.length*8,w=[];
+    for(i=0;i<b.length;i++)w[i>>2]|=b.charCodeAt(i)<<(24-(i%4)*8);
+    w[l>>5]|=0x80<<(24-l%32);w[((l+64>>9)<<4)+15]=l;
+    for(i=0;i<w.length;i+=16){var a=H.slice(0),W=[];
+      for(j=0;j<64;j++){
+        if(j<16)W[j]=w[i+j]|0;
+        else{var x=W[j-15],y=W[j-2];W[j]=(W[j-16]+(r(7,x)^r(18,x)^(x>>>3))+W[j-7]+(r(17,y)^r(19,y)^(y>>>10)))|0;}
+        var t1=(a[7]+(r(6,a[4])^r(11,a[4])^r(25,a[4]))+((a[4]&a[5])^(~a[4]&a[6]))+K[j]+W[j])|0;
+        var t2=((r(2,a[0])^r(13,a[0])^r(22,a[0]))+((a[0]&a[1])^(a[0]&a[2])^(a[1]&a[2])))|0;
+        a=[(t1+t2)|0].concat(a);a[4]=(a[4]+t1)|0;a.pop();}
+      for(j=0;j<8;j++)H[j]=(H[j]+a[j])|0;}
+    return H.map(function(v){return ('00000000'+(v>>>0).toString(16)).slice(-8);}).join('');
+  }
+  function check(){
+    var now = Date.now();
+    if(now < lockUntil){ err.textContent = 'Aguarde ' + Math.ceil((lockUntil-now)/1000) + 's para tentar de novo.'; return; }
+    if(sha256(pwd.value) === TARGET){
+      try { sessionStorage.setItem(KEY, OK); } catch(e){}
+      open(); return;
+    }
+    attempts++; pwd.value = ''; pwd.focus();
+    if(attempts >= 5){ lockUntil = now + 30000; attempts = 0; err.textContent = 'Muitas tentativas. Aguarde 30 segundos.'; }
+    else err.textContent = 'Senha incorreta · ' + (5-attempts) + ' tentativa(s) restante(s).';
+  }
+  document.getElementById('gate-box').addEventListener('submit', check);
+})();
+</script>
+<!-- END PASSWORD GATE -->
+
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <!-- ============ HEADER ============ -->
@@ -515,34 +589,6 @@ footer .cols{display:grid;grid-template-columns:2fr 1fr;gap:24px}
         <div class="callout ok" style="margin-top:16px"><span class="ic" aria-hidden="true">✓</span><p>Diferença de apenas <strong>2,3%</strong> entre Purchase e conversão offline (PagSeguro) — confirma a baixa distorção real. Perda pontual identificada: pedidos pagos por conta bancária.</p></div>
       </article>
     </div>
-
-    <article class="card reveal" style="margin-top:16px">
-      <h3>RLA — Receita Líquida Aproximada (base do ROMI)</h3>
-      <p>Variável criada no GTM e enviada ao GA4 como dimensão personalizada (não retroativa). Ela aplica o percentual de custos operacionais sobre o valor bruto de cada venda, viabilizando a fórmula do contrato: <code>ROMI = [Receita − (Mídia + Custos operacionais)] ÷ (Mídia + Custos operacionais)</code>.</p>
-      <div class="calc">
-        <div>
-          <div class="field">
-            <label for="rlaValor">Valor bruto da venda (R$)</label>
-            <input type="number" id="rlaValor" value="52.41" min="0" step="0.01" inputmode="decimal">
-          </div>
-          <div class="field" style="margin-top:14px">
-            <label for="rlaPct">Custos operacionais: <span id="rlaPctOut">85</span>%</label>
-            <input type="range" id="rlaPct" min="0" max="100" step="1" value="85" aria-describedby="rlaHint">
-          </div>
-          <div class="preset" role="group" aria-label="Percentuais de referência">
-            <button type="button" data-p="70" aria-pressed="false">70% · setup inicial</button>
-            <button type="button" data-p="85" aria-pressed="true">85% · definido em 30/09</button>
-          </div>
-          <p class="muted small" id="rlaHint" style="margin-top:10px">Exemplo real do setup: R$ 52,41 com 70% → R$ 15,72.</p>
-        </div>
-        <div class="calc-out" aria-live="polite">
-          <div class="small" style="color:#a8b8dc">RLA calculada</div>
-          <div class="big" id="rlaOut">R$ 7,86</div>
-          <p>Receita líquida aproximada por venda após custos operacionais.</p>
-        </div>
-      </div>
-      <div class="callout info"><span class="ic" aria-hidden="true">i</span><p><strong>Atualização 30/09:</strong> a Comparar definiu <strong>85% de custos</strong> para o cálculo (antes, 70% como estimativa inicial). Próximo passo: aplicar o novo percentual na variável e validar com o financeiro.</p></div>
-    </article>
 
     <div class="grid g2" style="margin-top:16px">
       <article class="card reveal">
@@ -1224,21 +1270,6 @@ $('#tlList').innerHTML = TIMELINE.map(([d,k,t,x]) => `<li class="${k}"><div clas
     body.querySelectorAll('tr').forEach(tr => tr.classList.toggle('hide', b.dataset.r!=='Todos' && tr.dataset.r!==b.dataset.r));
   });
   const st = document.createElement('style'); st.textContent = '.pend tr.hide{display:none}'; document.head.appendChild(st);
-})();
-
-// Calculadora RLA
-(function(){
-  const v = $('#rlaValor'), p = $('#rlaPct'), out = $('#rlaOut'), po = $('#rlaPctOut');
-  const presets = document.querySelectorAll('.preset button');
-  const brl = n => n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  function calc(){
-    const val = parseFloat(v.value)||0, pct = parseInt(p.value,10);
-    po.textContent = pct; out.textContent = brl(val*(1-pct/100));
-    presets.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.p===pct)));
-  }
-  v.addEventListener('input',calc); p.addEventListener('input',calc);
-  presets.forEach(b => b.addEventListener('click', () => { p.value = b.dataset.p; calc(); }));
-  calc();
 })();
 
 // Galeria DTR
