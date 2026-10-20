@@ -161,9 +161,55 @@ a{color:var(--blue-ink)}
 .foot{margin:18px auto 0;padding:14px 0 20px;font-size:12.5px;color:var(--ink-3);text-align:center}
 .foot strong{color:var(--ink-2)}
 
+/* DTR Integrado Compacto */
+.dtr-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 16px}
+.dtr-step{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.dtr-step b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--navy-900);color:#fff;font-size:12px;margin-bottom:6px}
+.dtr-step p{font-size:13px;margin:0;color:var(--ink-2);line-height:1.4}
+.dtr-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.dtr-chip{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--line-2);background:#fff;font:600 12.5px 'Inter';color:var(--ink);cursor:pointer;transition:all .2s}
+.dtr-chip .flag{font-size:15px}
+.dtr-chip:hover{border-color:var(--navy-700);background:#f8fafc;transform:translateY(-1px)}
+.dtr-chip.active{background:var(--navy-900);color:#fff;border-color:var(--navy-900)}
+.dtr-sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;margin-top:12px}
+.dtr-sim label{display:block;font-size:12.5px;font-weight:600;color:var(--navy-900);margin-bottom:5px}
+.dtr-sim input[type=text]{width:100%;min-height:44px;border-radius:10px;border:1px solid var(--line-2);padding:0 12px;font:600 14.5px 'Inter';color:var(--ink);box-sizing:border-box}
+.dtr-sim input[type=text]:focus{outline:3px solid var(--blue);outline-offset:2px;border-color:var(--blue)}
+.dtr-urlbar{display:flex;align-items:center;gap:8px;background:#0b1430;border-radius:12px 12px 0 0;padding:8px 8px 8px 12px}
+.dtr-urlbar code{flex:1;color:#cdd8f3;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:ui-monospace,Menlo,monospace}
+.dtr-urlbar button{min-height:32px;padding:0 11px;border-radius:8px;border:0;background:#fff;color:var(--navy-900);font:600 11.5px 'Inter';cursor:pointer;white-space:nowrap}
+.dtr-mock{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;padding:16px;border-radius:0 0 12px 12px;color:#fff;background:linear-gradient(120deg,rgba(8,30,44,.96),rgba(20,52,72,.9))}
+.dtr-mock .m-eb{font:700 10.5px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#e2e8f0}
+.dtr-mock .m-eb span{color:#ffcb05;text-decoration:underline;text-underline-offset:3px}
+.dtr-mock .m-h1{font:800 clamp(17px,2vw,22px)/1.15 'Outfit';color:#fff;margin:6px 0 4px}
+.dtr-mock .m-lead{font-size:12px;color:#d5deea;margin:0}
+.dtr-mock .m-form{background:#fff;color:var(--ink);border-radius:10px;padding:12px}
+.dtr-mock .m-form .m-t{font:700 13px/1.25 'Outfit';color:#0f172a;margin-bottom:6px}
+.dtr-mock .m-sel{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line-2);border-radius:8px;padding:7px 9px;font-size:12px;font-weight:600}
+.dtr-mock .m-sel.set{border-color:#16a34a;background:#f0fdf4;color:#15803d}
+.dtr-mock .m-cta{margin-top:8px;background:#ffcb05;color:#111;border-radius:8px;text-align:center;font:700 12px 'Inter';padding:8px}
+.dtr-log-mini{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:5px;font-size:11.5px}
+.dtr-log-mini li{padding:4px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.dtr-log-mini li.ok{background:var(--emerald-bg);border-color:#a7f3d0;color:var(--emerald-ink);font-weight:600}
+.dtr-log-mini li.no{background:#f1f5f9;color:var(--ink-3)}
+.dtr-drawer{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;margin-top:10px}
+.dtr-drawer summary{padding:10px 12px;cursor:pointer;font:600 12.5px 'Inter';color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;background:#f8fafc}
+.dtr-drawer summary::-webkit-details-marker{display:none}
+.dtr-drawer .content{padding:12px;border-top:1px dashed var(--line)}
+.dtr-rtabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:thin;padding-bottom:5px;margin-bottom:8px}
+.dtr-rtab{flex:0 0 auto;min-height:32px;padding:0 9px;border-radius:7px;border:1px solid var(--line-2);background:#fff;font:600 11.5px 'Inter';color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.dtr-rtab[aria-selected="true"]{background:var(--navy-900);color:#fff;border-color:var(--navy-900)}
+.dtr-codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:5px;max-height:180px;overflow:auto;padding:2px}
+.dtr-code{min-height:38px;border-radius:7px;border:1px solid var(--line);background:var(--bg);text-align:left;padding:4px 6px;cursor:pointer;display:flex;flex-direction:column;justify-content:center}
+.dtr-code b{font:700 11px ui-monospace,Menlo,monospace;color:var(--navy-900)}
+.dtr-code span{font-size:10px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtr-code:hover,.dtr-code.on{border-color:var(--blue);background:#eaf0fb}
+
 @media (max-width:960px){
   .kpis{grid-template-columns:repeat(2,1fr)}
   .sheets{grid-template-columns:repeat(2,1fr)}
+  .dtr-steps{grid-template-columns:1fr}
+  .dtr-sim{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .sheets{grid-template-columns:1fr}
@@ -187,6 +233,7 @@ a{color:var(--blue-ink)}
   .item summary .chev{grid-column:3;grid-row:1 / span 2}
   .body{grid-template-columns:1fr;gap:0}
   .toggle-all{margin-left:0}
+  .dtr-mock{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -291,6 +338,7 @@ html.gate-on,html.gate-on body{overflow:hidden}
     <nav class="nav" aria-label="Seções do resumo" id="nav">
       <a href="#resumo">Resumo</a>
       <a href="#planilhas">Planilhas</a>
+      <a href="#dtr">Simulador DTR</a>
       <a href="#contrato">Contrato</a>
     </nav>
   </div>
@@ -304,7 +352,9 @@ html.gate-on,html.gate-on body{overflow:hidden}
       <div class="hero-top">
         <span class="eyebrow"><i aria-hidden="true"></i>Resumo executivo · Outubro/2026</span>
         <span class="chip">Vigência <b>17/07 – 17/09/2026</b></span>
-        <a class="chip chip-link" href="https://drive.google.com/drive/u/0/folders/1KfI_A4MSU5KCV0HuhfYAkO9yss7_QrZI" target="_blank" rel="noopener">🎯 Plano Demand Gen (Google Drive) ↗</a>
+        <a class="chip chip-link" href="https://drive.google.com/drive/u/0/folders/1KfI_A4MSU5KCV0HuhfYAkO9yss7_QrZI" target="_blank" rel="noopener">🎯 Plano Demand Gen (Drive) ↗</a>
+        <a class="chip chip-link" href="#dtr" style="background:rgba(52,211,153,.15);border-color:#34d399;color:#a7f3d0;font-weight:700">⚡ Simulador DTR (10 Simulações) ↓</a>
+        <a class="chip chip-link" href="dtr.html" target="_blank" rel="noopener" title="Abrir página dedicada do DTR em nova aba">Página especial DTR ↗</a>
       </div>
       <h1 id="h1">Contratado <span class="g">×</span> Entregue</h1>
       <p class="lead">O que foi combinado, o que a Search Googlar entregou e o que vem a seguir.</p>
@@ -325,15 +375,16 @@ html.gate-on,html.gate-on body{overflow:hidden}
           <div class="v">728</div>
           <div class="s">724 em grupo + 4 em conta</div>
         </a>
-        <a class="kpi" href="#contrato">
+        <a class="kpi" href="#dtr">
           <div class="l">DTR ativo na LP</div>
           <div class="v">248</div>
-          <div class="s">países e territórios</div>
+          <div class="s">países suportados · 10 testes rápidos ↓</div>
         </a>
       </div>
     </div>
   </section>
 
+<!-- ============ PLANILHAS E MATERIAIS ============ -->
   <section class="wrap pad" id="planilhas" aria-labelledby="h-plan">
     <div class="sec-head reveal">
       <div>
@@ -363,6 +414,100 @@ html.gate-on,html.gate-on body{overflow:hidden}
         <a class="btn alt" href="https://support.google.com/google-ads/thread/461298526/pmax-sobre-quebra-do-quadrante?msgid=461305269#" target="_blank" rel="noopener">Ler discussão no fórum ↗</a>
       </article>
     </div>
+  </section>
+
+<!-- ============ DTR COMPACTO (Posicionado logo após Planilhas) ============ -->
+  <section class="wrap pad" id="dtr" aria-labelledby="h-dtr">
+    <div class="sec-head reveal">
+      <div>
+        <h2 id="h-dtr">Dynamic Text Replacement (DTR)</h2>
+        <p>Estrutura inteligente que personaliza a mensagem da landing page conforme o destino buscado no Google Ads. Emulação com <strong>248 países e territórios</strong> (10 simulações prioritárias em destaque).</p>
+      </div>
+      <div>
+        <a class="btn alt" href="dtr.html" target="_blank" rel="noopener" style="min-height:38px;font-size:13px;padding:0 12px">Abrir em página dedicada ↗</a>
+      </div>
+    </div>
+
+    <!-- Explicação objetiva em 3 passos -->
+    <div class="dtr-steps">
+      <div class="dtr-step">
+        <b>1</b>
+        <p>O anúncio no Google Ads envia o destino na URL (ex: <code>?dtr=Estados Unidos</code>).</p>
+      </div>
+      <div class="dtr-step">
+        <b>2</b>
+        <p>O script reescreve em tempo real título (H1), eyebrow, apoio e pré-seleciona a região.</p>
+      </div>
+      <div class="dtr-step">
+        <b>3</b>
+        <p>O visitante vê imediatamente o país pesquisado, reduzindo a rejeição e elevando o CTR.</p>
+      </div>
+    </div>
+
+    <!-- Card de simulação interativa com 10 países prioritários -->
+    <article class="card" style="padding:18px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px">
+        <div>
+          <h3 style="font-size:16.5px">10 Simulações Prioritárias em Destaque</h3>
+          <p style="font-size:13px;color:var(--ink-3);margin:2px 0 0">Toque em qualquer botão para emular a mudança da página instantaneamente:</p>
+        </div>
+        <span class="badge b-done" style="font-size:11.5px">248 Países no Catálogo</span>
+      </div>
+
+      <div class="dtr-chips" id="mainDtrChips" role="group" aria-label="10 simulações prioritárias">
+        <button type="button" class="dtr-chip active" data-v="Estados Unidos"><span class="flag">🇺🇸</span> Estados Unidos</button>
+        <button type="button" class="dtr-chip" data-v="Canadá"><span class="flag">🇨🇦</span> Canadá</button>
+        <button type="button" class="dtr-chip" data-v="Chile"><span class="flag">🇨🇱</span> Chile</button>
+        <button type="button" class="dtr-chip" data-v="Argentina"><span class="flag">🇦🇷</span> Argentina</button>
+        <button type="button" class="dtr-chip" data-v="Portugal"><span class="flag">🇵🇹</span> Portugal</button>
+        <button type="button" class="dtr-chip" data-v="Espanha"><span class="flag">🇪🇸</span> Espanha</button>
+        <button type="button" class="dtr-chip" data-v="França"><span class="flag">🇫🇷</span> França</button>
+        <button type="button" class="dtr-chip" data-v="Itália"><span class="flag">🇮🇹</span> Itália</button>
+        <button type="button" class="dtr-chip" data-v="Reino Unido"><span class="flag">🇬🇧</span> Reino Unido</button>
+        <button type="button" class="dtr-chip" data-v="Japão"><span class="flag">🇯🇵</span> Japão</button>
+      </div>
+
+      <div class="dtr-sim">
+        <div>
+          <label for="mainDtrInput">Parâmetro dinâmico da URL (<code>?dtr=</code>)</label>
+          <input type="text" id="mainDtrInput" value="Estados Unidos" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ex.: eua, Japão, FR, Chile">
+          <p style="font-size:12px;color:var(--ink-3);margin-top:5px">Destino não cadastrado preserva a página padrão (fallback 100% seguro).</p>
+
+          <!-- Sanfona compacta para os 248 códigos ISO -->
+          <details class="dtr-drawer">
+            <summary>
+              <span>Ver todos os 248 países por continente</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <div class="content">
+              <div class="dtr-rtabs" role="tablist" id="mainRegTabs"></div>
+              <div class="dtr-codes" id="mainRegCodes" role="tabpanel"></div>
+            </div>
+          </details>
+        </div>
+
+        <div>
+          <div class="dtr-urlbar">
+            <code id="mainDtrUrlOut">compararsegurodeviagem.com.br/lp-b/?variant=B&amp;dtr=Estados%20Unidos</code>
+            <button type="button" id="mainDtrCopy">Copiar URL</button>
+          </div>
+          <div class="dtr-mock" aria-live="polite" aria-label="Prévia da landing page">
+            <div>
+              <div class="m-eb" id="mainMEb">SEGURO VIAGEM INTERNACIONAL · <span>ESTADOS UNIDOS</span></div>
+              <div class="m-h1" id="mainMH1">As melhores seguradoras para sua viagem aos Estados Unidos</div>
+              <p class="m-lead" id="mainMLead">Cotação grátis em segundos. Um time que conhece os Estados Unidos de perto.</p>
+            </div>
+            <div class="m-form">
+              <div class="m-t" id="mainMFormT">Receba sua cotação para a América do Norte</div>
+              <div style="font-size:11px;color:var(--ink-3);margin-bottom:3px">Destino pré-selecionado</div>
+              <div class="m-sel set" id="mainMSel"><span>América do Norte</span><span aria-hidden="true">▾</span></div>
+              <div class="m-cta">Comparar planos agora</div>
+            </div>
+          </div>
+          <ul class="dtr-log-mini" id="mainDtrLog" aria-label="Alterações dinâmicas"></ul>
+        </div>
+      </div>
+    </article>
   </section>
 
 <!-- ============ CONTRATO ============ -->
@@ -603,6 +748,141 @@ const linkBtn = k => `<a class="btn" href="${LINK[k].href}" target="_blank" rel=
     if(e.isIntersecting){ links.forEach(a => a.classList.remove('on')); const a = map.get(e.target.id); if(a) a.classList.add('on'); }
   }), {rootMargin:'-40% 0px -55% 0px'});
   map.forEach((_, id) => { const s = document.getElementById(id); if(s) spy.observe(s); });
+})();
+
+/* =========================================================
+   DTR INTERATIVO INTEGRADO (248 Países · 10 Simulações Prioritárias)
+   ========================================================= */
+(function(){
+  var CODIGOS_ISO = (
+    'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ ' +
+    'BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +
+    'CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ ' +
+    'DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR ' +
+    'GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY ' +
+    'HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP ' +
+    'KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY ' +
+    'MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ ' +
+    'NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR ' +
+    'PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN ' +
+    'SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW ' +
+    'TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'
+  ).split(' ');
+  var REGIOES = {
+    'América do Norte': 'BM CA GL MX US'.split(' '),
+    'América do Sul': 'AR BO CL CO EC FK GF GS GY PE PY SR UY VE'.split(' '),
+    'Europa': 'AD AL AT AX BA BE BG BY CH CY CZ DE DK EE ES FI FO FR GB GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SJ SK SM UA VA'.split(' '),
+    'Ásia': 'AF AM AZ BD BN BT CN GE HK ID IN IO JP KG KH KP KR KZ LA LK MM MN MO MY NP PH PK SG TH TJ TL TM TW UZ VN'.split(' '),
+    'América Central': 'AG AI AW BB BL BQ BS BZ CR CU CW DM DO GD GP GT HN HT JM KN KY LC MF MQ MS NI PA PR SV SX TC TT VC VG VI'.split(' '),
+    'África': 'AO BF BI BJ BW CD CF CG CI CM CV DJ DZ EG EH ER ET GA GH GM GN GQ GW KE KM LR LS LY MA MG ML MR MU MW MZ NA NE NG RE RW SC SD SH SL SN SO SS ST SZ TD TG TN TZ UG YT ZA ZM ZW'.split(' '),
+    'Oceania': 'AQ AS AU CC CK CX FJ FM GU HM KI MH MP NC NF NR NU NZ PF PG PN PW SB TK TO TV UM VU WF WS'.split(' '),
+    'Oriente Médio': 'AE BH IL IQ IR JO KW LB OM PS QA SA SY TR YE'.split(' ')
+  };
+  var ALIASES = {'eua':'US','usa':'US','america':'US','uk':'GB','gra-bretanha':'GB','great-britain':'GB','britain':'GB','uae':'AE','holanda':'NL','holland':'NL','coreia-do-sul':'KR','south-korea':'KR','coreia-do-norte':'KP','north-korea':'KP','republica-tcheca':'CZ','czech-republic':'CZ','russia':'RU','vietna':'VN','vietnam':'VN','palestina':'PS','palestine':'PS'};
+  var FORMAS = {'US':'aos Estados Unidos','AE':'aos Emirados Árabes Unidos','NL':'aos Países Baixos','ES':'à Espanha','FR':'à França','DE':'à Alemanha','IT':'à Itália','AR':'à Argentina','AU':'à Austrália','AT':'à Áustria','BE':'à Bélgica','CN':'à China','CO':'à Colômbia','KR':'à Coreia do Sul','HR':'à Croácia','DK':'à Dinamarca','GR':'à Grécia','IN':'à Índia','ID':'à Indonésia','IE':'à Irlanda','IS':'à Islândia','NO':'à Noruega','NZ':'à Nova Zelândia','PL':'à Polônia','CZ':'à República Tcheca','ZA':'à África do Sul','SE':'à Suécia','CH':'à Suíça','TH':'à Tailândia','TR':'à Turquia','BR':'ao Brasil','CA':'ao Canadá','CL':'ao Chile','EG':'ao Egito','JP':'ao Japão','MX':'ao México','PY':'ao Paraguai','PE':'ao Peru','GB':'ao Reino Unido','UY':'ao Uruguai','PT':'a Portugal'};
+  var FEMININAS = {'Europa':1,'América do Norte':1,'América do Sul':1,'América Central':1,'Ásia':1,'África':1,'Oceania':1};
+
+  function normalizar(v){ return String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,' e ').replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,''); }
+  function obterRegiao(c){ if(c==='BR') return 'Brasil'; for(var r in REGIOES){ if(REGIOES[r].indexOf(c)!==-1) return r; } return null; }
+
+  var temIntl = typeof Intl!=='undefined' && typeof Intl.DisplayNames!=='undefined';
+  var nomesPt = temIntl ? new Intl.DisplayNames(['pt-BR'],{type:'region'}) : null;
+  var nomesEn = temIntl ? new Intl.DisplayNames(['en-US'],{type:'region'}) : null;
+  var nome = function(c){ return nomesPt ? nomesPt.of(c) : c; };
+
+  var BASE = {};
+  CODIGOS_ISO.forEach(function(c){
+    var d = {codigo:c, nome:nome(c), regiao:obterRegiao(c)};
+    BASE[normalizar(c)] = d; BASE[normalizar(d.nome)] = d;
+    if(nomesEn) BASE[normalizar(nomesEn.of(c))] = d;
+  });
+  Object.keys(ALIASES).forEach(function(a){ var c = ALIASES[a]; BASE[normalizar(a)] = {codigo:c, nome:nome(c), regiao:obterRegiao(c)}; });
+
+  function forma(d){ return FORMAS[d.codigo] || ('para ' + d.nome); }
+  function comArtigo(d){
+    var f = forma(d);
+    if(f.indexOf('aos ')===0) return 'os ' + f.substring(4);
+    if(f.indexOf('ao ')===0)  return 'o ' + f.substring(3);
+    if(f.indexOf('à ')===0)   return 'a ' + f.substring(2);
+    if(f.indexOf('a ')===0)   return f.substring(2);
+    if(f.indexOf('para ')===0) return f.substring(5);
+    return d.nome;
+  }
+
+  var $i = function(id){ return document.getElementById(id); };
+  var input = $i('mainDtrInput'), urlOut = $i('mainDtrUrlOut'), log = $i('mainDtrLog');
+  var mEb = $i('mainMEb'), mH1 = $i('mainMH1'), mLead = $i('mainMLead'), mFormT = $i('mainMFormT'), mSel = $i('mainMSel');
+  if(!input) return;
+
+  function render(){
+    var raw = input.value, d = BASE[normalizar(raw)] || null;
+    urlOut.textContent = 'compararsegurodeviagem.com.br/lp-b/?variant=B&dtr=' + encodeURIComponent(raw.trim());
+    document.querySelectorAll('.dtr-code').forEach(function(b){ b.classList.toggle('on', !!d && b.dataset.c===d.codigo); });
+    document.querySelectorAll('.dtr-chip').forEach(function(btn){
+      btn.classList.toggle('active', normalizar(btn.dataset.v) === normalizar(raw));
+    });
+    if(!d){
+      mEb.textContent = 'SEGURO VIAGEM INTERNACIONAL';
+      mH1.textContent = 'As melhores seguradoras para sua viagem';
+      mLead.textContent = 'Cotação grátis em segundos.';
+      mFormT.textContent = 'Receba sua cotação';
+      mSel.classList.remove('set'); mSel.firstElementChild.textContent = 'Selecione';
+      log.innerHTML = '<li class="no">' + (raw.trim() ? 'Destino não catalogado → página padrão mantida' : 'Sem parâmetro → página original') + '</li>';
+      return;
+    }
+    mEb.innerHTML = 'SEGURO VIAGEM INTERNACIONAL · <span></span>';
+    mEb.lastChild.textContent = d.nome.toUpperCase();
+    mH1.textContent = 'As melhores seguradoras para sua viagem ' + forma(d);
+    mLead.textContent = 'Cotação grátis em segundos. Um time que conhece ' + comArtigo(d) + ' de perto.';
+    if(d.regiao){
+      mFormT.textContent = 'Receba sua cotação para ' + (FEMININAS[d.regiao] ? 'a ' : 'o ') + d.regiao;
+      mSel.classList.add('set'); mSel.firstElementChild.textContent = d.regiao;
+    } else {
+      mFormT.textContent = 'Receba sua cotação';
+      mSel.classList.remove('set'); mSel.firstElementChild.textContent = 'Selecione';
+    }
+    var itens = [['Eyebrow',1],['Título H1',1],['Apoio',1],['Formulário',!!d.regiao],['Região',!!d.regiao]];
+    log.innerHTML = '<li class="ok"><strong>' + d.codigo + '</strong> · ' + d.nome + '</li>' +
+      itens.map(function(x){ return '<li class="' + (x[1]?'ok':'no') + '">' + (x[1]?'✓ ':'— ') + x[0] + '</li>'; }).join('');
+  }
+
+  // Abas de regiões + códigos
+  var grupos = {}; Object.keys(REGIOES).forEach(function(r){ grupos[r] = REGIOES[r].slice(); });
+  grupos['Brasil'] = ['BR'];
+  var semRegiao = CODIGOS_ISO.filter(function(c){ return !obterRegiao(c); });
+  if(semRegiao.length) grupos['Outros'] = semRegiao;
+  var tabs = $i('mainRegTabs'), codes = $i('mainRegCodes');
+  if(tabs && codes){
+    tabs.innerHTML = Object.keys(grupos).map(function(r,i){
+      return '<button type="button" class="dtr-rtab" role="tab" aria-selected="' + (i===0) + '" data-r="' + r + '">' + r + ' (' + grupos[r].length + ')</button>';
+    }).join('');
+    function showRegion(r){
+      tabs.querySelectorAll('.dtr-rtab').forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.r===r)); });
+      codes.innerHTML = grupos[r].map(function(c){ return '<button type="button" class="dtr-code" data-c="' + c + '" title="' + nome(c) + '"><b>' + c + '</b><span>' + nome(c) + '</span></button>'; }).join('');
+      render();
+    }
+    tabs.addEventListener('click', function(e){ var t = e.target.closest('.dtr-rtab'); if(t) showRegion(t.dataset.r); });
+    codes.addEventListener('click', function(e){ var b = e.target.closest('.dtr-code'); if(b){ input.value = b.dataset.c; render(); } });
+    showRegion('América do Norte');
+  }
+
+  var mainChips = $i('mainDtrChips');
+  if(mainChips){
+    mainChips.addEventListener('click', function(e){
+      var b = e.target.closest('.dtr-chip');
+      if(b){ input.value = b.dataset.v; render(); }
+    });
+  }
+  input.addEventListener('input', render);
+  var btnCopy = $i('mainDtrCopy');
+  if(btnCopy){
+    btnCopy.addEventListener('click', function(){
+      var btn = this, txt = 'https://www.' + urlOut.textContent;
+      var done = function(){ btn.textContent = 'Copiado ✓'; setTimeout(function(){ btn.textContent = 'Copiar URL'; }, 1600); };
+      if(navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else done();
+    });
+  }
+  render();
 })();
 </script>
 </body>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simulador DTR · Landing Page Dinâmica — Comparar Seguro de Viagem</title>
+<meta name="description" content="Simulação interativa do Dynamic Text Replacement (DTR) para 248 países com 10 cenários prioritários em destaque.">
+<meta name="theme-color" content="#0d1b3e">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#081129; --navy-900:#0d1b3e; --navy-800:#15264f; --navy-700:#1f3466;
+  --ink:#0f172a; --ink-2:#334155; --ink-3:#475569; --line:#e2e8f0; --line-2:#cbd5e1;
+  --bg:#f4f6fb; --card:#fff;
+  --emerald-ink:#047857; --emerald-bg:#d1fae5;
+  --blue-ink:#1d4ed8;    --blue-bg:#dbeafe;    --blue:#3b82f6;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px -14px rgba(15,23,42,.18);
+  --header-h:60px; --ease:cubic-bezier(.2,.8,.2,1);
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:15.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Outfit','Inter',sans-serif;line-height:1.15;margin:0;color:var(--navy-900);letter-spacing:-.01em}
+p{margin:0 0 8px;color:var(--ink-2)}
+a{color:var(--blue-ink)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,var(--sal));padding-right:max(16px,var(--sar))}
+
+/* Header simples */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(13,27,62,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:var(--sat);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);gap:12px}
+.brand-title{color:#fff;font:700 15px 'Outfit',sans-serif;display:flex;align-items:center;gap:8px}
+.brand-title span{color:#a7f3d0}
+.btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;text-decoration:none;font:600 13px 'Inter';transition:background .2s}
+.btn-back:hover{background:rgba(255,255,255,.18)}
+
+/* Hero */
+.hero{background:radial-gradient(600px 300px at 90% -20%,rgba(52,211,153,.22),transparent 60%),linear-gradient(160deg,var(--navy-950),var(--navy-900) 55%,var(--navy-800));color:#fff;padding:26px 0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#a7f3d0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:5px 11px;border-radius:999px}
+.hero h1{color:#fff;font-size:clamp(24px,4.5vw,34px);margin:10px 0 6px;font-weight:800}
+.hero h1 .g{background:linear-gradient(90deg,#34d399,#60a5fa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#cdd8f3;font-size:15px;max-width:720px;margin:0}
+
+/* Cards & Grid */
+.pad{padding:24px 0 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.step{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px}
+.step b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--navy-900);color:#fff;font-size:12.5px;margin-bottom:8px}
+.step p{font-size:13.5px;margin:0;color:var(--ink-2)}
+
+/* 10 Simulações Prioritárias */
+.top-chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.chip-btn{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 14px;border-radius:12px;border:1px solid var(--line-2);background:#fff;font:600 13px 'Inter';color:var(--ink);cursor:pointer;transition:all .2s}
+.chip-btn .flag{font-size:16px}
+.chip-btn:hover{border-color:var(--navy-700);background:#f8fafc;transform:translateY(-1px)}
+.chip-btn.active{background:var(--navy-900);color:#fff;border-color:var(--navy-900)}
+
+/* Simulador UI */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;margin-top:14px}
+.sim label{display:block;font-size:13px;font-weight:600;color:var(--navy-900);margin-bottom:6px}
+.sim input[type=text]{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line-2);padding:0 14px;font:600 15.5px 'Inter';color:var(--ink);box-sizing:border-box}
+.sim input[type=text]:focus{outline:3px solid var(--blue);outline-offset:2px;border-color:var(--blue)}
+.urlbar{display:flex;align-items:center;gap:8px;background:#0b1430;border-radius:12px 12px 0 0;padding:8px 8px 8px 14px}
+.urlbar code{flex:1;color:#cdd8f3;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:ui-monospace,Menlo,monospace}
+.urlbar button{min-height:34px;padding:0 12px;border-radius:8px;border:0;background:#fff;color:var(--navy-900);font:600 12px 'Inter';cursor:pointer;white-space:nowrap}
+.mock{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;padding:20px;border-radius:0 0 14px 14px;color:#fff;background:linear-gradient(120deg,rgba(8,30,44,.96),rgba(20,52,72,.9))}
+.mock .m-eb{font:700 11px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#e2e8f0}
+.mock .m-eb span{color:#ffcb05;text-decoration:underline;text-underline-offset:4px}
+.mock .m-h1{font:800 clamp(19px,2.2vw,26px)/1.15 'Outfit';color:#fff;margin:8px 0 6px}
+.mock .m-lead{font-size:13px;color:#d5deea;margin:0}
+.mock .m-form{background:#fff;color:var(--ink);border-radius:12px;padding:14px}
+.mock .m-form .m-t{font:700 14.5px/1.25 'Outfit';color:#0f172a;margin-bottom:8px}
+.mock .m-sel{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line-2);border-radius:9px;padding:8px 10px;font-size:12.5px;font-weight:600}
+.mock .m-sel.set{border-color:#16a34a;background:#f0fdf4;color:#15803d}
+.mock .m-cta{margin-top:10px;background:#ffcb05;color:#111;border-radius:9px;text-align:center;font:700 12.5px 'Inter';padding:9px}
+.dtr-log{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;font-size:12.5px}
+.dtr-log li{padding:6px 9px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.dtr-log li.ok{background:var(--emerald-bg);border-color:#a7f3d0;color:var(--emerald-ink);font-weight:600}
+.dtr-log li.no{background:#f1f5f9;color:var(--ink-3)}
+
+/* Sanfona 248 países */
+.drawer{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:14px}
+.drawer summary{padding:12px 14px;cursor:pointer;font:600 13.5px 'Inter';color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;background:#f8fafc}
+.drawer summary::-webkit-details-marker{display:none}
+.drawer .content{padding:14px;border-top:1px dashed var(--line)}
+.rtabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:6px;margin-bottom:8px}
+.rtab{flex:0 0 auto;min-height:36px;padding:0 11px;border-radius:8px;border:1px solid var(--line-2);background:#fff;font:600 12px 'Inter';color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.rtab[aria-selected="true"]{background:var(--navy-900);color:#fff;border-color:var(--navy-900)}
+.codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;max-height:220px;overflow:auto;padding:2px}
+.code{min-height:42px;border-radius:8px;border:1px solid var(--line);background:var(--bg);text-align:left;padding:5px 8px;cursor:pointer;display:flex;flex-direction:column;justify-content:center}
+.code b{font:700 12px ui-monospace,Menlo,monospace;color:var(--navy-900)}
+.code span{font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.code:hover,.code.on{border-color:var(--blue);background:#eaf0fb}
+
+@media (max-width:768px){
+  .steps{grid-template-columns:1fr}
+  .sim{grid-template-columns:1fr}
+  .mock{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand-title">
+      Comparar <span>×</span> Search Googlar
+    </div>
+    <a href="resumido.html#resumo" class="btn-back">← Voltar ao Resumo</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Tecnologia de Conversão · Landing Page Modular</span>
+      <h1>Dynamic Text Replacement <span class="g">(DTR)</span></h1>
+      <p class="lead">Estrutura que adapta a mensagem da página conforme o destino pesquisado no Google Ads. O sistema emula <strong>248 países e territórios</strong> sem multiplicação de páginas manuais.</p>
+    </div>
+  </section>
+
+  <div class="wrap pad">
+    <!-- Mecânica em 3 passos -->
+    <article class="card">
+      <h2 style="font-size:18px">Como o DTR funciona na prática</h2>
+      <div class="steps">
+        <div class="step">
+          <b>1</b>
+          <p>O anúncio no Google Ads envia o destino na URL (ex: <code>?dtr=Estados Unidos</code>).</p>
+        </div>
+        <div class="step">
+          <b>2</b>
+          <p>O script reescreve dinamicamente título (H1), eyebrow, apoio e formulário.</p>
+        </div>
+        <div class="step">
+          <b>3</b>
+          <p>O visitante vê exatamente o que buscou, elevando o Índice de Qualidade e a conversão.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10 Simulações Prioritárias -->
+    <article class="card" id="simulador">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px">
+        <div>
+          <h2 style="font-size:18px">10 Simulações Prioritárias</h2>
+          <p style="font-size:13.5px;color:var(--ink-3);margin:2px 0 0">Toque em qualquer destino estratégico para aplicar o teste imediatamente:</p>
+        </div>
+        <span style="font-size:12px;background:var(--emerald-bg);color:var(--emerald-ink);font-weight:700;padding:4px 10px;border-radius:999px">248 Países Suportados</span>
+      </div>
+
+      <div class="top-chips" id="topChips" role="group" aria-label="10 simulações prioritárias">
+        <button type="button" class="chip-btn active" data-v="Estados Unidos"><span class="flag">🇺🇸</span> Estados Unidos</button>
+        <button type="button" class="chip-btn" data-v="Canadá"><span class="flag">🇨🇦</span> Canadá</button>
+        <button type="button" class="chip-btn" data-v="Chile"><span class="flag">🇨🇱</span> Chile</button>
+        <button type="button" class="chip-btn" data-v="Argentina"><span class="flag">🇦🇷</span> Argentina</button>
+        <button type="button" class="chip-btn" data-v="Portugal"><span class="flag">🇵🇹</span> Portugal</button>
+        <button type="button" class="chip-btn" data-v="Espanha"><span class="flag">🇪🇸</span> Espanha</button>
+        <button type="button" class="chip-btn" data-v="França"><span class="flag">🇫🇷</span> França</button>
+        <button type="button" class="chip-btn" data-v="Itália"><span class="flag">🇮🇹</span> Itália</button>
+        <button type="button" class="chip-btn" data-v="Reino Unido"><span class="flag">🇬🇧</span> Reino Unido</button>
+        <button type="button" class="chip-btn" data-v="Japão"><span class="flag">🇯🇵</span> Japão</button>
+      </div>
+
+      <!-- Simulador Interativo -->
+      <div class="sim">
+        <div>
+          <label for="dtrInput">Valor do parâmetro <code>?dtr=</code></label>
+          <input type="text" id="dtrInput" value="Estados Unidos" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ex.: eua, Japão, FR, reino-unido">
+          <p style="font-size:12.5px;color:var(--ink-3);margin-top:6px">Termo não reconhecido = página original preservada (fallback seguro).</p>
+
+          <!-- Expansor para os 248 países -->
+          <details class="drawer">
+            <summary>
+              <span>Ver todos os 248 códigos ISO por continente</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <div class="content">
+              <div class="rtabs" role="tablist" id="regTabs"></div>
+              <div class="codes" id="regCodes" role="tabpanel"></div>
+            </div>
+          </details>
+        </div>
+
+        <div>
+          <div class="urlbar">
+            <code id="dtrUrlOut">compararsegurodeviagem.com.br/lp-b/?variant=B&amp;dtr=Estados%20Unidos</code>
+            <button type="button" id="dtrCopy">Copiar URL</button>
+          </div>
+          <div class="mock" aria-live="polite" aria-label="Prévia da landing page">
+            <div>
+              <div class="m-eb" id="mEb">SEGURO VIAGEM INTERNACIONAL · <span>ESTADOS UNIDOS</span></div>
+              <div class="m-h1" id="mH1">As melhores seguradoras para sua viagem aos Estados Unidos</div>
+              <p class="m-lead" id="mLead">Cotação grátis em segundos. Um time que conhece os Estados Unidos de perto.</p>
+            </div>
+            <div class="m-form">
+              <div class="m-t" id="mFormT">Receba sua cotação para a América do Norte</div>
+              <div style="font-size:11.5px;color:var(--ink-3);margin-bottom:4px">Destino pré-selecionado</div>
+              <div class="m-sel set" id="mSel"><span>América do Norte</span><span aria-hidden="true">▾</span></div>
+              <div class="m-cta">Comparar planos agora</div>
+            </div>
+          </div>
+          <ul class="dtr-log" id="dtrLog" aria-label="Elementos alterados pelo DTR"></ul>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<script>
+(function(){
+  var CODIGOS_ISO = (
+    'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ ' +
+    'BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +
+    'CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ ' +
+    'DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR ' +
+    'GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY ' +
+    'HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP ' +
+    'KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY ' +
+    'MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ ' +
+    'NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR ' +
+    'PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN ' +
+    'SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW ' +
+    'TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'
+  ).split(' ');
+  var REGIOES = {
+    'América do Norte': 'BM CA GL MX US'.split(' '),
+    'América do Sul': 'AR BO CL CO EC FK GF GS GY PE PY SR UY VE'.split(' '),
+    'Europa': 'AD AL AT AX BA BE BG BY CH CY CZ DE DK EE ES FI FO FR GB GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SJ SK SM UA VA'.split(' '),
+    'Ásia': 'AF AM AZ BD BN BT CN GE HK ID IN IO JP KG KH KP KR KZ LA LK MM MN MO MY NP PH PK SG TH TJ TL TM TW UZ VN'.split(' '),
+    'América Central': 'AG AI AW BB BL BQ BS BZ CR CU CW DM DO GD GP GT HN HT JM KN KY LC MF MQ MS NI PA PR SV SX TC TT VC VG VI'.split(' '),
+    'África': 'AO BF BI BJ BW CD CF CG CI CM CV DJ DZ EG EH ER ET GA GH GM GN GQ GW KE KM LR LS LY MA MG ML MR MU MW MZ NA NE NG RE RW SC SD SH SL SN SO SS ST SZ TD TG TN TZ UG YT ZA ZM ZW'.split(' '),
+    'Oceania': 'AQ AS AU CC CK CX FJ FM GU HM KI MH MP NC NF NR NU NZ PF PG PN PW SB TK TO TV UM VU WF WS'.split(' '),
+    'Oriente Médio': 'AE BH IL IQ IR JO KW LB OM PS QA SA SY TR YE'.split(' ')
+  };
+  var ALIASES = {'eua':'US','usa':'US','america':'US','uk':'GB','gra-bretanha':'GB','great-britain':'GB','britain':'GB','uae':'AE','holanda':'NL','holland':'NL','coreia-do-sul':'KR','south-korea':'KR','coreia-do-norte':'KP','north-korea':'KP','republica-tcheca':'CZ','czech-republic':'CZ','russia':'RU','vietna':'VN','vietnam':'VN','palestina':'PS','palestine':'PS'};
+  var FORMAS = {'US':'aos Estados Unidos','AE':'aos Emirados Árabes Unidos','NL':'aos Países Baixos','ES':'à Espanha','FR':'à França','DE':'à Alemanha','IT':'à Itália','AR':'à Argentina','AU':'à Austrália','AT':'à Áustria','BE':'à Bélgica','CN':'à China','CO':'à Colômbia','KR':'à Coreia do Sul','HR':'à Croácia','DK':'à Dinamarca','GR':'à Grécia','IN':'à Índia','ID':'à Indonésia','IE':'à Irlanda','IS':'à Islândia','NO':'à Noruega','NZ':'à Nova Zelândia','PL':'à Polônia','CZ':'à República Tcheca','ZA':'à África do Sul','SE':'à Suécia','CH':'à Suíça','TH':'à Tailândia','TR':'à Turquia','BR':'ao Brasil','CA':'ao Canadá','CL':'ao Chile','EG':'ao Egito','JP':'ao Japão','MX':'ao México','PY':'ao Paraguai','PE':'ao Peru','GB':'ao Reino Unido','UY':'ao Uruguai','PT':'a Portugal'};
+  var FEMININAS = {'Europa':1,'América do Norte':1,'América do Sul':1,'América Central':1,'Ásia':1,'África':1,'Oceania':1};
+
+  function normalizar(v){ return String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,' e ').replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,''); }
+  function obterRegiao(c){ if(c==='BR') return 'Brasil'; for(var r in REGIOES){ if(REGIOES[r].indexOf(c)!==-1) return r; } return null; }
+
+  var temIntl = typeof Intl!=='undefined' && typeof Intl.DisplayNames!=='undefined';
+  var nomesPt = temIntl ? new Intl.DisplayNames(['pt-BR'],{type:'region'}) : null;
+  var nomesEn = temIntl ? new Intl.DisplayNames(['en-US'],{type:'region'}) : null;
+  var nome = function(c){ return nomesPt ? nomesPt.of(c) : c; };
+
+  var BASE = {};
+  CODIGOS_ISO.forEach(function(c){
+    var d = {codigo:c, nome:nome(c), regiao:obterRegiao(c)};
+    BASE[normalizar(c)] = d; BASE[normalizar(d.nome)] = d;
+    if(nomesEn) BASE[normalizar(nomesEn.of(c))] = d;
+  });
+  Object.keys(ALIASES).forEach(function(a){ var c = ALIASES[a]; BASE[normalizar(a)] = {codigo:c, nome:nome(c), regiao:obterRegiao(c)}; });
+
+  function forma(d){ return FORMAS[d.codigo] || ('para ' + d.nome); }
+  function comArtigo(d){
+    var f = forma(d);
+    if(f.indexOf('aos ')===0) return 'os ' + f.substring(4);
+    if(f.indexOf('ao ')===0)  return 'o ' + f.substring(3);
+    if(f.indexOf('à ')===0)   return 'a ' + f.substring(2);
+    if(f.indexOf('a ')===0)   return f.substring(2);
+    if(f.indexOf('para ')===0) return f.substring(5);
+    return d.nome;
+  }
+
+  var $i = function(id){ return document.getElementById(id); };
+  var input = $i('dtrInput'), urlOut = $i('dtrUrlOut'), log = $i('dtrLog');
+  var mEb = $i('mEb'), mH1 = $i('mH1'), mLead = $i('mLead'), mFormT = $i('mFormT'), mSel = $i('mSel');
+  if(!input) return;
+
+  function render(){
+    var raw = input.value, d = BASE[normalizar(raw)] || null;
+    urlOut.textContent = 'compararsegurodeviagem.com.br/lp-b/?variant=B&dtr=' + encodeURIComponent(raw.trim());
+    document.querySelectorAll('.code').forEach(function(b){ b.classList.toggle('on', !!d && b.dataset.c===d.codigo); });
+    document.querySelectorAll('.chip-btn').forEach(function(btn){
+      btn.classList.toggle('active', normalizar(btn.dataset.v) === normalizar(raw));
+    });
+    if(!d){
+      mEb.textContent = 'SEGURO VIAGEM INTERNACIONAL';
+      mH1.textContent = 'As melhores seguradoras para sua viagem';
+      mLead.textContent = 'Cotação grátis em segundos.';
+      mFormT.textContent = 'Receba sua cotação';
+      mSel.classList.remove('set'); mSel.firstElementChild.textContent = 'Selecione';
+      log.innerHTML = '<li class="no">' + (raw.trim() ? 'Valor não reconhecido → página padrão mantida' : 'Sem parâmetro → página original') + '</li>';
+      return;
+    }
+    mEb.innerHTML = 'SEGURO VIAGEM INTERNACIONAL · <span></span>';
+    mEb.lastChild.textContent = d.nome.toUpperCase();
+    mH1.textContent = 'As melhores seguradoras para sua viagem ' + forma(d);
+    mLead.textContent = 'Cotação grátis em segundos. Um time que conhece ' + comArtigo(d) + ' de perto.';
+    if(d.regiao){
+      mFormT.textContent = 'Receba sua cotação para ' + (FEMININAS[d.regiao] ? 'a ' : 'o ') + d.regiao;
+      mSel.classList.add('set'); mSel.firstElementChild.textContent = d.regiao;
+    } else {
+      mFormT.textContent = 'Receba sua cotação';
+      mSel.classList.remove('set'); mSel.firstElementChild.textContent = 'Selecione';
+    }
+    var itens = [['Eyebrow',1],['Título (H1)',1],['Texto de apoio',1],['Título do formulário',!!d.regiao],['Região pré-selecionada',!!d.regiao]];
+    log.innerHTML = '<li class="ok">Código <strong>' + d.codigo + '</strong> · ' + d.nome + '</li>' +
+      itens.map(function(x){ return '<li class="' + (x[1]?'ok':'no') + '">' + (x[1]?'✓ ':'— ') + x[0] + '</li>'; }).join('');
+  }
+
+  // Abas de regiões + códigos
+  var grupos = {}; Object.keys(REGIOES).forEach(function(r){ grupos[r] = REGIOES[r].slice(); });
+  grupos['Brasil'] = ['BR'];
+  var semRegiao = CODIGOS_ISO.filter(function(c){ return !obterRegiao(c); });
+  if(semRegiao.length) grupos['Sem região no formulário'] = semRegiao;
+  var tabs = $i('regTabs'), codes = $i('regCodes');
+  if(tabs && codes){
+    tabs.innerHTML = Object.keys(grupos).map(function(r,i){
+      return '<button type="button" class="rtab" role="tab" aria-selected="' + (i===0) + '" data-r="' + r + '">' + r + ' <span class="muted">' + grupos[r].length + '</span></button>';
+    }).join('');
+    function showRegion(r){
+      tabs.querySelectorAll('.rtab').forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.r===r)); });
+      codes.innerHTML = grupos[r].map(function(c){ return '<button type="button" class="code" data-c="' + c + '" title="' + nome(c) + '"><b>' + c + '</b><span>' + nome(c) + '</span></button>'; }).join('');
+      render();
+    }
+    tabs.addEventListener('click', function(e){ var t = e.target.closest('.rtab'); if(t) showRegion(t.dataset.r); });
+    codes.addEventListener('click', function(e){ var b = e.target.closest('.code'); if(b){ input.value = b.dataset.c; render(); } });
+    showRegion('América do Norte');
+  }
+
+  var topChips = $i('topChips');
+  if(topChips){
+    topChips.addEventListener('click', function(e){
+      var b = e.target.closest('.chip-btn');
+      if(b){ input.value = b.dataset.v; render(); }
+    });
+  }
+  input.addEventListener('input', render);
+  var btnCopy = $i('dtrCopy');
+  if(btnCopy){
+    btnCopy.addEventListener('click', function(){
+      var btn = this, txt = 'https://www.' + urlOut.textContent;
+      var done = function(){ btn.textContent = 'Copiado ✓'; setTimeout(function(){ btn.textContent = 'Copiar URL'; }, 1600); };
+      if(navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else done();
+    });
+  }
+  render();
+})();
+</script>
+</body>
+</html>
